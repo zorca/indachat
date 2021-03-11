@@ -1,20 +1,21 @@
 version: '3.8'
 services:
   app:
-    image: wordpress:5.5.1-fpm-alpine
-    restart: unless-stopped
+    image: leocavalcante/dwoole:dev
     volumes:
-      - app:/var/www/html
+      - ./:/app
+    environment:
+      - ENTRY_POINT_FILE=/app/srv/swoole.php
   caddy:
     image: caddy/caddy
     depends_on:
-      - indachat
+      - app
     restart: always
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - app:/var/www/html
+      - ./:/app
       - ./Caddyfile:/etc/caddy/Caddyfile
   database:
     image: tarantool/tarantool
@@ -27,5 +28,4 @@ services:
     volumes:
       - db_data:/var/lib/tarantool
 volumes:
-  app:
   db_data:
