@@ -1,1 +1,2 @@
-# indachat
+# Indachat
+Multichat Server
