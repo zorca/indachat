@@ -24,6 +24,18 @@
     "extra": {
         "ramsey/devtools": {
             "commands": {
+                "test:unit": {
+                    "override": true,
+                    "script": "pest"
+                },
+                "test:coverage:ci": {
+                    "override": true,
+                    "script": "pest --colors=always --coverage-clover build/coverage/clover.xml --coverage-xml build/coverage/coverage-xml --log-junit build/coverage/junit.xml"
+                },
+                "test:coverage:html": {
+                    "override": true,
+                    "script": "pest --colors=always --coverage-html build/coverage/coverage-html"
+                },
                 "lint": {
                     "override": true,
                     "script": "phpcs --cache=./var/cache/phpcs.cache"
@@ -31,10 +43,6 @@
                 "lint:fix": {
                     "override": true,
                     "script": "phpcbf --cache=./var/cache/phpcs.cache"
-                },
-                "test:unit": {
-                    "override": true,
-                    "script": "pest"
                 }
             }
         }
