@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  app:
+    image: wordpress:5.5.1-fpm-alpine
+    restart: unless-stopped
+    volumes:
+      - app:/var/www/html
+  caddy:
+    image: caddy/caddy
+    depends_on:
+      - indachat
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - app:/var/www/html
+      - ./Caddyfile:/etc/caddy/Caddyfile
+  database:
+    image: tarantool/tarantool
+    environment:
+      - TARANTOOL_PORT=3301
+      - TARANTOOL_USER_NAME=root
+      - TARANTOOL_USER_PASSWORD=secret
+    ports:
+      - "3301:3301"
+    volumes:
+      - db_data:/var/lib/tarantool
+volumes:
+  app:
+  db_data:
