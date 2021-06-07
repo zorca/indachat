@@ -1,2 +1,2 @@
 # Indachat
-Multichat Server with PHP and Tarantool DB
+Multichat Server with PHP and RethinkDB
